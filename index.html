@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/9eb3bb6c40.js" crossorigin="anonymous"></script>
+        <title>Assignment 2 - Website Building</title>
+        <style>
+            body {
+                box-sizing: border-box;
+                font-family: sans-serif;
+            }
+
+            #login-container {
+                width: 460px;
+                margin: 0 auto;
+            }
+
+            form label,
+            form input {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            form input {
+                padding: 8px;
+            }
+
+            form label {
+                font-weight: bold;
+            }
+
+            form div {
+                margin: 16px 0px;
+            }
+
+            .checked-icon-show {
+                
+                position: relative;
+                top: 27px;
+                left: 74.5%;
+               
+            }
+            .checked-icon-hide {
+
+                position: relative;
+                top: 27px;
+                left: 74.5%;
+                display: none;
+
+            }
+
+            .no-icon-show {
+                
+                position: relative;
+                top:27px;
+                left: 75%;
+            }
+
+            .no-icon-hide {
+
+                display: none;
+                position: relative;
+                top:27px;
+                left: 75%;
+            }
+
+            .green {
+
+                border-top: limegreen solid 2px;
+                border-left: limegreen solid 2px;
+                border-right: limegreen solid 2px;
+                border-bottom: limegreen solid 2px;
+            }
+            .success {
+
+                display: none;
+                
+            }
+            .password-wrong {
+
+                display: none;
+            }
+
+            .username-wrong {
+
+                display: none;
+            }
+
+            .username-missing {
+
+                display: none;
+            }
+
+            .password-missing {
+                
+                display: none;
+            }
+
+            .red {
+
+               border-top: red solid 2px;
+               border-left: red solid 2px;
+               border-right: red solid 2px;
+               border-bottom: red solid 2px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div id="login-container">
+
+            <form>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <i class="fas fa-check checked-icon-hide" style="color:limegreen;" id="correct1"></i>
+                    <i class="fas fa-times no-icon-hide" style="color:red;" id="not-correct1"></i>
+                    <input id="username" type="text" class="grey">
+                    
+                    
+                </div>
+
+                <div>
+                    <label for="password">Password:</label>
+                    <i class="fas fa-check checked-icon-hide" style="color:limegreen;" id="correct2" ></i>
+                    <i class="fas fa-times no-icon-hide" style="color:red;" id="not-correct2"></i>
+                    <input id="password" type="password" class="grey">
+                </div>
+
+                <input type="submit" value="Login">
+                
+            </form>
+                <br>
+                <p style="color: limegreen; font-style: italic;" class="success">Succesful login!</p>
+                <p style="color: red; font-style: italic;" class="password-wrong">*please, enter valid password</p>
+                <p style="color: red; font-style: italic;" class="username-wrong">*please, enter valid username</p>
+                <p style="color: red; font-style: italic;" class="username-missing">*please, enter username</p>
+                <p style="color: red; font-style: italic;" class="password-missing">*please, enter password</p>
+
+
+        </div>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        <script>
+
+              let correctUsername = "new_user";
+              let correctPassword = 123456789;
+              
+            
+              $("form").on("submit",function(e) {
+
+                e.preventDefault();
+
+            
+                if (correctUsername == $("#username").val() && correctPassword == $("#password").val()) {
+                    
+                    $("#correct1").show();
+                    $("#correct2").show();
+                    $("#not-correct1").hide();
+                    $("#not-correct2").hide();
+
+                    $("#username").removeClass("grey");
+                    $("#username").addClass("green");
+                    $("#username").removeClass("red");
+
+                    $("#password").removeClass("grey");
+                    $("#password").addClass("green");
+                    $("#password").removeClass("red");
+
+                    $(".success").css("display", "inline");
+                    $(".password-wrong").css("display", "none");
+                    $(".username-wrong").css("display", "none");
+                    $(".username-missing").css("display", "none");
+                    $(".password-missing").css("display", "none");
+
+                }
+                else if (correctUsername == $("#username").val() && correctPassword != $("#password").val() && $("#password").val().length > 1)  {
+
+                    $("#correct1").show();
+                    $("#correct2").hide();
+                    $("#not-correct1").hide();
+                    $("#not-correct2").show();
+
+                    $("#username").removeClass("grey");
+                    $("#username").addClass("green");
+                    $("#username").removeClass("red");
+
+                    $("#password").removeClass("grey");
+                    $("#password").addClass("red");
+                    $("#password").removeClass("green");
+                    
+                    $(".success").css("display", "none");
+                    $(".password-wrong").css("display", "inline");
+                    $(".username-wrong").css("display", "none");
+                    $(".username-missing").css("display", "none");
+                    $(".password-missing").css("display", "none");
+                }
+
+                else if (correctUsername != $("#username").val() && correctPassword == $("#password").val() && $("#username").val().length > 1) {
+
+                    $("#correct1").hide();
+                    $("#correct2").show();
+                    $("#not-correct1").show();
+                    $("#not-correct2").hide();
+
+                    $("#password").removeClass("grey");
+                    $("#password").addClass("green");
+                    $("#password").removeClass("red");
+
+                    $("#username").removeClass("grey");
+                    $("#username").addClass("red");
+                    $("#username").removeClass("green");
+                   
+                    $(".success").css("display", "none");
+                    $(".password-wrong").css("display", "none");
+                    $(".username-wrong").css("display", "inline");
+                    $(".username-missing").css("display", "none");
+                    $(".password-missing").css("display", "none");
+
+                }
+
+                else if (correctUsername != $("#username").val() && correctPassword != $("#password").val() && $("#password").val().length > 1 && $("#username").val().length > 1)  {
+
+                    $("#correct1").hide();
+                    $("#correct2").hide();
+                    $("#not-correct1").show();
+                    $("#not-correct2").show();
+
+                    $("#password").removeClass("grey");
+                    $("#password").addClass("red");
+                    $("#password").removeClass("green");
+
+                    $("#username").removeClass("grey");
+                    $("#username").addClass("red");
+                    $("#username").removeClass("green");
+                   
+                    $(".success").css("display", "none");
+                    $(".password-wrong").css("display", "block");
+                    $(".username-wrong").css("display", "block");
+                    $(".username-missing").css("display", "none");
+                    $(".password-missing").css("display", "none");
+                }
+
+                else if ($("#username").val().length < 1 && $("#password").val().length < 1)   {
+
+                    $("#correct1").hide();
+                    $("#correct2").hide();
+                    $("#not-correct1").show();
+                    $("#not-correct2").show();
+
+                    $("#password").removeClass("grey");
+                    $("#password").addClass("red");
+                    $("#password").removeClass("green");
+
+                    $("#username").removeClass("grey");
+                    $("#username").addClass("red");
+                    $("#username").removeClass("green");
+                   
+                    $(".success").css("display", "none");
+                    $(".password-wrong").css("display", "none");
+                    $(".username-wrong").css("display", "none");
+                    $(".username-missing").css("display", "block");
+                    $(".password-missing").css("display", "block");
+                }
+
+                else if ($("#username").val().length < 1 && $("#password").val().length > 1) {
+
+                    $("#correct1").hide();
+                    $("#correct2").hide();
+                    $("#not-correct1").show();
+                    $("#not-correct2").show();
+
+                    $("#password").removeClass("grey");
+                    $("#password").addClass("red");
+                    $("#password").removeClass("green");
+
+                    $("#username").removeClass("grey");
+                    $("#username").addClass("red");
+                    $("#username").removeClass("green");
+                   
+                    $(".success").css("display", "none");
+                    $(".password-wrong").css("display", "none");
+                    $(".username-wrong").css("display", "none");
+                    $(".username-missing").css("display", "block");
+                    $(".password-missing").css("display", "none");
+
+                }
+
+                else if ($("#username").val().length > 1 && $("#password").val().length < 1) {
+
+                    $("#correct1").hide();
+                    $("#correct2").hide();
+                    $("#not-correct1").show();
+                    $("#not-correct2").show();
+
+                    $("#password").removeClass("grey");
+                    $("#password").addClass("red");
+                    $("#password").removeClass("green");
+
+                    $("#username").removeClass("grey");
+                    $("#username").addClass("red");
+                    $("#username").removeClass("green");
+                   
+                    $(".success").css("display", "none");
+                    $(".password-wrong").css("display", "none");
+                    $(".username-wrong").css("display", "none");
+                    $(".username-missing").css("display", "none");
+                    $(".password-missing").css("display", "block");
+                }
+              });
+        </script>
+    </body>
+</html>
